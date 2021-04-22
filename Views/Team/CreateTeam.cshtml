@@ -1,0 +1,48 @@
+﻿@model PlayerClub.Models.Team
+
+@{
+    ViewData["Title"] = "CreateTeam";
+}
+
+<h1>New Team</h1>
+
+<h4>Team Details</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateTeam">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ground" class="control-label"></label>
+                <input asp-for="Ground" class="form-control" />
+                <span asp-validation-for="Ground" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Coach" class="control-label"></label>
+                <input asp-for="Coach" class="form-control" />
+                <span asp-validation-for="Coach" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Region" class="control-label"></label>
+                <input asp-for="Region" class="form-control" />
+                <span asp-validation-for="Region" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to TeamHub</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

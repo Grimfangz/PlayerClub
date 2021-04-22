@@ -1,0 +1,22 @@
+﻿@model PlayerClub.Models.Sign;
+
+<div>
+    <table class="table">
+        <thead>
+            <h4 style="text-align: center;">@Html.DisplayFor(model => model.Player.Name) ✍️</h4>
+        </thead>
+        <tbody>
+            @foreach (var team in Model.Teams)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => team.Name)
+                    </td>
+                    <td>
+                        <a asp-action="SignToTeam" asp-route-name="@team.Name" asp-route-id="@Model.Player.Id">Sign to team</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

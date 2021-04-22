@@ -1,0 +1,101 @@
+﻿@model IEnumerable<PlayerClub.Models.Player>
+
+@{
+    ViewData["Title"] = "Player Hub";
+}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript">
+        $(function () {
+            $('.details').click(function () {
+                var id = $(this).data('assigned-id');
+                var route = '@Url.Action("PlayerDetails", "Player")?id=' + id;
+                $('#partial_details').load(route);
+            });
+
+        });
+        $(function () {
+            $('.sign').click(function () {
+                var id = $(this).data('assigned-id');
+                var route = '@Url.Action("SignPlayer", "Player")?id=' + id;
+                $('#parital_sign').load(route);
+            });
+
+        });
+</script>
+<h1>List of Players</h1>
+
+<p>
+    <a asp-action="CreatePlayer">Add a new player</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Team)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Team.Name)
+                </td>
+                <td>
+                    <a href="#" class="details" data-assigned-id="@item.Id" data-toggle="modal" data-target="#playerModal">Details</a>
+                    |
+                    <a asp-action="DeletePlayer" asp-route-id="@item.Id" style="color:red;">Delete</a>
+                    @if (item.Team == null)
+                    {
+                        <span> | </span><a href="#" class="sign" data-assigned-id="@item.Id" data-toggle="modal" data-target="#signModal" style="color:orange;">Sign</a>
+                    }
+                </td>
+            </tr>
+        }
+
+        <div class="modal fade" id="playerModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Playere Info</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="partial_details"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="signModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4>Team Select</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div id="parital_sign"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </tbody>
+</table>
